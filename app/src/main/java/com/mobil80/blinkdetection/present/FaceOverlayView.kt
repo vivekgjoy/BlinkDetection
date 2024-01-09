@@ -10,12 +10,6 @@ import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.face.Face
 import com.google.android.gms.vision.face.FaceDetector
 
-/**
- * Created by muralikrishna on 02/11/17.
- */
-/**
- * Created by Paul on 11/4/15.
- */
 class FaceOverlayView @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,

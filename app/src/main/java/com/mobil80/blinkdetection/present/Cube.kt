@@ -5,12 +5,6 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
 
-/**
- * Created by muralikrishna on 23/11/17.
- */
-/**
- * Created by muralikrish on 31/5/15.
- */
 class Cube {
     private var vertexBuffer: FloatBuffer? = null
 

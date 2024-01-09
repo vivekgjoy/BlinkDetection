@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
+
+    <FrameLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:gravity="top">
+
+        <ImageView
+            android:id="@+id/settings_back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_round_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Settings"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+        <ImageView
+            android:id="@+id/settings_options"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_round_arrow_back_24" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/preview_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/ui_bar">
+
+        <!-- Camera Preview -->
+        <!-- Place your camera preview here programmatically -->
+
+        <!-- OverlayView -->
+        <!-- Place your overlay view here programmatically -->
+
+    </FrameLayout>
+
+    <!-- Custom Overlay Layout -->
+    <!-- Define your custom overlay layout here programmatically or through another XML -->
+
+    <!-- Text View -->
+    <!-- Place your TextView here programmatically -->
+
+    <!-- UI Bar at the bottom -->
+    <LinearLayout
+        android:id="@+id/ui_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="Blink eyes to swipe" />
+
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="160dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"-->
+<!--            app:lottie_rawRes="@raw/face_scan_lottie_anim" />-->
+
+    </LinearLayout>
+
+</RelativeLayout>

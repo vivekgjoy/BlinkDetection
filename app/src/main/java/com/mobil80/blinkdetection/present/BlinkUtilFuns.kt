@@ -12,14 +12,8 @@ import android.os.Debug
 import android.util.Log
 import java.io.ByteArrayOutputStream
 
-/**
- * Created by muralikrishna on 02/11/17.
- */
-/**
- * This class has various static utility methods.
- */
-internal object Util {
-    private val TAG = Util::class.java.simpleName
+internal object BlinkUtilFuns {
+    private val TAG = BlinkUtilFuns::class.java.simpleName
     private val TORCH_BLACK_LISTED = Build.MODEL == "DROID2"
     const val PUBLIC_LOG_TAG = "card.io"
     private var sHardwareSupported: Boolean? = null

@@ -20,4 +20,5 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <dimen name="scanner_anim_height">40dp</dimen>
 </resources>

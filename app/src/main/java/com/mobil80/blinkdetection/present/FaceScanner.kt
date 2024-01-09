@@ -14,23 +14,6 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.lang.ref.WeakReference
 
-/**
- * Encapsulates the core image scanning.
- *
- *
- * As of 7/20/12, the flow should be:
- *
- *
- * 1. CardIOActivity sets up the CardScanner, Preview and Overlay. 2. As each frame is received &
- * processed by the scanner, the scanner notifies the activity of any relevant changes. (e.g. edges
- * detected, scan complete etc.) 3. CardIOActivity passes on the information to the preview and
- * overlay, which can then update themselves as needed. 4. Once a result is reported, CardIOActivty
- * closes the scanner and launches the next activity.
- *
- *
- * HOWEVER, at the moment, the CardScanner is directly communicating with the Preview.
- */
-//TODO: implement autofocus of the camera
 internal class FaceScanner(scanActivity: CameraActivity, currentFrameOrientation: Int) :
     PreviewCallback, AutoFocusCallback, SurfaceHolder.Callback {
     private var detectedBitmap: Bitmap? = null
@@ -176,9 +159,6 @@ internal class FaceScanner(scanActivity: CameraActivity, currentFrameOrientation
         mPreviewBuffer = null
     }
 
-    /*
-     * --------------------------- SurfaceHolder callbacks
-     */
     private fun makePreviewGo(holder: SurfaceHolder?): Boolean {
         // method name from http://www.youtube.com/watch?v=-WmGvYDLsj4
         assert(holder != null)
@@ -373,11 +353,13 @@ internal class FaceScanner(scanActivity: CameraActivity, currentFrameOrientation
         if (mCamera == null) {
             prepareScanner()
         }
+
         if (useCamera && mCamera == null) {
             // prepare failed!
             Log.i(TAG, "null camera. failure")
             return false
         }
+
         assert(holder != null)
         if (useCamera && mPreviewBuffer == null) {
             val parameters = mCamera!!.parameters
@@ -446,8 +428,8 @@ internal class FaceScanner(scanActivity: CameraActivity, currentFrameOrientation
         }
 
     companion object {
-        private val TAG = FaceScanner::class.java.simpleName
-        private const val MIN_FOCUS_SCORE = 6f // TODO - parameterize this
+        private val TAG = "face"
+        private const val MIN_FOCUS_SCORE = 6f
 
         // value based on phone? or
         // change focus behavior?

@@ -8,59 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import java.lang.ref.WeakReference
 
-/**
- * Created by muralikrishna on 02/11/17.
- */ /* OverlayView.java
- * See the file "LICENSE.md" for the full license governing this code.
- */
-/**
- * This class implements a transparent overlay that is drawn over the raw camera capture frames.
- *
- *
- * OverlayView draws the guide frame which indicates to the user where to hold the card. For debug
- * builds, it also displays the frame rate and the focus score. Once a card is detected, the class
- * displays a still image of the card.
- *
- *
- * There are two stages of mark-up that are applied to the card image. When the image is first
- * passed into this class, a negative rounded rectangle mask is used to block out the image
- * background behind the rounded corners of the card. Then, a light gray rounded rectangle outline
- * is drawn along the card edges.
- *
- *
- * Once the digits are detected for the credit card number, those digits are drawn above the
- * respective digits of the card.
- *
- *
- * An instance of this class is created when the owning CardIOActivity is created. Its lifecycle is
- * the same as that of the owning activity.
- *
- *
- *
- *
- * A couple of technical notes:
- *
- *
- * the drawing code is not optimized for performance. It re-computes values for each frame that
- * could be cached instead (such as guide tick locations). However, I have measured performance for
- * the app, including drawing performance, and drawing is not at all a bottleneck. So, fixing this
- * seems like a low priority item.
- *
- *
- * It is not clear whether the rotation animation currently implemented is really needed. We should
- * figure out a strategy for this, and then change the code accordingly.
- *
- *
- * To prevent race conditions & memory leaks, setting new card images happens in the context of the
- * UI thread.
- *
- *
- * The class has an instance float field displayScale that holds the value screen dimensions are
- * scaled by. This field is used for instance to achieve consistent guide frame thickness
- * independent of screen scale.
- *
- *
- */
 internal class OverlayView(
     captureActivity: CameraActivity,
     attributeSet: AttributeSet?,
@@ -123,7 +70,7 @@ internal class OverlayView(
             )
 
             // mTorchRect used only for touch lookup, not layout
-            torchRect = Util.rectGivenCenter(
+            torchRect = BlinkUtilFuns.rectGivenCenter(
                 torchPoint,
                 (TORCH_WIDTH * mScale).toInt(),
                 (TORCH_HEIGHT * mScale).toInt()
@@ -134,7 +81,7 @@ internal class OverlayView(
                 mCameraPreviewRect!!.right - topEdgeUIOffset.x,
                 mCameraPreviewRect!!.top + topEdgeUIOffset.y
             )
-            mLogoRect = Util.rectGivenCenter(
+            mLogoRect = BlinkUtilFuns.rectGivenCenter(
                 logoPoint,
                 (LOGO_MAX_WIDTH * mScale).toInt(),
                 (LOGO_MAX_HEIGHT * mScale).toInt()
@@ -292,7 +239,7 @@ internal class OverlayView(
             action = event.action and MotionEvent.ACTION_MASK
             if (action == MotionEvent.ACTION_DOWN) {
                 val p = Point(event.x.toInt(), event.y.toInt())
-                val r = Util.rectGivenCenter(p, BUTTON_TOUCH_TOLERANCE, BUTTON_TOUCH_TOLERANCE)
+                val r = BlinkUtilFuns.rectGivenCenter(p, BUTTON_TOUCH_TOLERANCE, BUTTON_TOUCH_TOLERANCE)
                 if (mShowTorch && torchRect != null && Rect.intersects(torchRect!!, r)) {
                     mScanActivityRef.get()!!.toggleFlash()
                 } else {
@@ -307,7 +254,6 @@ internal class OverlayView(
         return false
     }
 
-    /* create the card image with inside a rounded rect */
     private fun decorateBitmap() {
         val roundedRect =
             RectF(2f, 2f, (mBitmap!!.width - 2).toFloat(), (mBitmap!!.height - 2).toFloat())
@@ -337,7 +283,6 @@ internal class OverlayView(
         maskBitmap.recycle()
     }
 
-    // TODO - move this into RequestTask, so we just get back a card image ready to go
     val isAnimating: Boolean
         get() = mState != 0
 
